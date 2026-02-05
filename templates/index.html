@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Em All</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app">
+        <!-- Minimal Sidebar -->
+        <aside class="sidebar">
+            <button class="new-chat-btn" onclick="newChat()">+ New Chat</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Tabs for LLMs -->
+            <div class="tabs" id="tabs">
+                <button class="tab active" data-model="all" onclick="switchTab('all')">Ask Em All</button>
+                <!-- Model tabs will be added dynamically -->
+            </div>
+
+            <!-- Chat Area -->
+            <div class="chat-container" id="chatContainer">
+                <!-- Welcome Screen -->
+                <div class="welcome" id="welcome">
+                    <h1>Hello there!</h1>
+                    <p>How can I help you today?</p>
+                    
+                    <div class="suggestions">
+                        <button class="suggestion" onclick="useSuggestion('What is the capital of Indonesia?')">
+                            <strong>What is the capital of Indonesia?</strong>
+                            <span>Jakarta or Nusantara?</span>
+                        </button>
+                        <button class="suggestion" onclick="useSuggestion('Generate Python code for web scraping with BeautifulSoup')">
+                            <strong>Generate Python code for</strong>
+                            <span>web scraping with BeautifulSoup</span>
+                        </button>
+                        <button class="suggestion" onclick="useSuggestion('Explain quantum mechanics fundamental principles')">
+                            <strong>Explain quantum mechanics</strong>
+                            <span>fundamental principles</span>
+                        </button>
+                        <button class="suggestion" onclick="useSuggestion('How does machine learning algorithm training work?')">
+                            <strong>How does machine learning</strong>
+                            <span>algorithm training work?</span>
+                        </button>
+                        <button class="suggestion" onclick="useSuggestion('Build a RESTful API using Node.js and Express')">
+                            <strong>Build a RESTful API</strong>
+                            <span>using Node.js and Express</span>
+                        </button>
+                        <button class="suggestion" onclick="useSuggestion('Compare SQL vs NoSQL databases use cases')">
+                            <strong>Compare SQL vs NoSQL</strong>
+                            <span>databases use cases</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages (hidden initially) -->
+                <div class="messages" id="messages" style="display: none;"></div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="messageInput" placeholder="Send a message..." onkeydown="handleKeyDown(event)">
+                    <div class="input-controls">
+                        <select id="modelSelect" multiple>
+                            <option disabled>Load models first...</option>
+                        </select>
+                        <button class="send-btn" onclick="sendMessage()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings Modal -->
+        <div class="settings-modal" id="settingsModal">
+            <div class="settings-content">
+                <h3>Settings</h3>
+                <label>OpenRouter API Key</label>
+                <input type="password" id="apiKey" placeholder="sk-or-v1-...">
+                <button onclick="loadModels()">Load Models</button>
+                <p id="modelStatus"></p>
+                <button class="close-btn" onclick="closeSettings()">Close</button>
+            </div>
+        </div>
+
+        <!-- Settings Button -->
+        <button class="settings-btn" onclick="openSettings()">⚙️</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
