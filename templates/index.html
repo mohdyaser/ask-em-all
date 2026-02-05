@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ask Em All</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="app">
-        <!-- Minimal Sidebar -->
+        <!-- Minimal Left Sidebar -->
         <aside class="sidebar">
-            <button class="new-chat-btn" onclick="newChat()">+ New Chat</button>
+            <button class="new-chat-btn" onclick="newChat()">+</button>
         </aside>
 
         <!-- Main Content -->
@@ -27,25 +29,29 @@
                 <div class="welcome" id="welcome">
                     <h1>Hello there!</h1>
                     <p>How can I help you today?</p>
-                    
+
                     <div class="suggestions">
                         <button class="suggestion" onclick="useSuggestion('What is the capital of Indonesia?')">
                             <strong>What is the capital of Indonesia?</strong>
                             <span>Jakarta or Nusantara?</span>
                         </button>
-                        <button class="suggestion" onclick="useSuggestion('Generate Python code for web scraping with BeautifulSoup')">
+                        <button class="suggestion"
+                            onclick="useSuggestion('Generate Python code for web scraping with BeautifulSoup')">
                             <strong>Generate Python code for</strong>
                             <span>web scraping with BeautifulSoup</span>
                         </button>
-                        <button class="suggestion" onclick="useSuggestion('Explain quantum mechanics fundamental principles')">
+                        <button class="suggestion"
+                            onclick="useSuggestion('Explain quantum mechanics fundamental principles')">
                             <strong>Explain quantum mechanics</strong>
                             <span>fundamental principles</span>
                         </button>
-                        <button class="suggestion" onclick="useSuggestion('How does machine learning algorithm training work?')">
+                        <button class="suggestion"
+                            onclick="useSuggestion('How does machine learning algorithm training work?')">
                             <strong>How does machine learning</strong>
                             <span>algorithm training work?</span>
                         </button>
-                        <button class="suggestion" onclick="useSuggestion('Build a RESTful API using Node.js and Express')">
+                        <button class="suggestion"
+                            onclick="useSuggestion('Build a RESTful API using Node.js and Express')">
                             <strong>Build a RESTful API</strong>
                             <span>using Node.js and Express</span>
                         </button>
@@ -63,20 +69,38 @@
             <!-- Input Area -->
             <div class="input-area">
                 <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="Send a message..." onkeydown="handleKeyDown(event)">
-                    <div class="input-controls">
-                        <select id="modelSelect" multiple>
-                            <option disabled>Load models first...</option>
-                        </select>
-                        <button class="send-btn" onclick="sendMessage()">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                            </svg>
-                        </button>
-                    </div>
+                    <input type="text" id="messageInput" placeholder="Send a message..."
+                        onkeydown="handleKeyDown(event)">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </main>
+
+        <!-- Right Panel for Model Selection -->
+        <aside class="right-panel">
+            <div class="panel-header">
+                <h3>Models</h3>
+                <button class="settings-btn-small" onclick="openSettings()">⚙️</button>
+            </div>
+
+            <div class="model-search">
+                <input type="text" id="modelSearch" placeholder="Search models..." oninput="filterModels()">
+            </div>
+
+            <div class="model-list" id="modelList">
+                <p class="model-hint">Enter API key to load models</p>
+            </div>
+
+            <div class="selected-models" id="selectedModelsPanel">
+                <h4>Selected (<span id="selectedCount">0</span>)</h4>
+                <div id="selectedModelsList"></div>
+            </div>
+        </aside>
 
         <!-- Settings Modal -->
         <div class="settings-modal" id="settingsModal">
@@ -89,11 +113,9 @@
                 <button class="close-btn" onclick="closeSettings()">Close</button>
             </div>
         </div>
-
-        <!-- Settings Button -->
-        <button class="settings-btn" onclick="openSettings()">⚙️</button>
     </div>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
+
 </html>
